@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import { motion } from "framer-motion";
+import { useRouter } from "next/navigation";
 
 const navItemVariants = {
   hidden: { opacity: 0, y: -10 },
@@ -12,6 +13,7 @@ const navItemVariants = {
 };
 
 const Header = () => {
+  const router = useRouter();
   return (
     <motion.header
       initial={{ opacity: 0, y: -20 }}
@@ -59,6 +61,7 @@ const Header = () => {
       <motion.div
         whileHover={{ scale: 1.08 }}
         whileTap={{ scale: 0.95 }}
+        onClick={() => router.push("/pages/signup")}
         className="text-sm font-semibold cursor-pointer px-5 py-2
           transition-transform
           "
