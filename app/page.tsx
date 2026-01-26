@@ -1,13 +1,24 @@
 
+import FeaturesSection from "@/components/custom/Features";
 import Header from "../components/custom/Header";
 import Hero from "../components/custom/Hero";
+import AISection from "@/components/custom/AISection";
+import SDKSection from "@/components/custom/SdkSection";
+import PricingSection from "@/components/custom/Pricing";
+import CTASection from "@/components/custom/CTA";
+import Footer from "@/components/custom/Footer";
 
 export default function Home() {
   return (
-    <div className="bg-[linear-gradient(180deg,hsla(219,29%,19%,1)_0%,hsla(0,0%,6%,1)_20%,hsla(163,100%,18%,1)_100%)] h-screen">
+    <div className="">
       <Header/>
-      <Hero/>
-     
+     <Hero/>
+     <FeaturesSection/>
+     <AISection/>
+     <SDKSection/>
+     <PricingSection/>
+     <CTASection/>
+     <Footer/>
     </div>
   );
 }

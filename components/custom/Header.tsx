@@ -1,74 +1,83 @@
 "use client";
-import React from "react";
-import { motion } from "framer-motion";
-import { useRouter } from "next/navigation";
-
-const navItemVariants = {
-  hidden: { opacity: 0, y: -10 },
-  visible: (i : any) => ({
-    opacity: 1,
-    y: 0,
-    transition: { delay: i * 0.1 },
-  }),
-};
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Menu, X, Bug } from "lucide-react";
 
 const Header = () => {
-  const router = useRouter();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const navLinks = [
+    { label: "Features", href: "#features" },
+    { label: "SDK", href: "#sdk" },
+    { label: "Pricing", href: "#pricing" },
+    { label: "Docs", href: "#docs" },
+  ];
+
   return (
-    <motion.header
-      initial={{ opacity: 0, y: -20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, ease: "easeOut" }}
-      className="flex justify-between items-center text-white p-6"
-    >
-      {/* Logo */}
-      <motion.div
-        whileHover={{ scale: 1.05 }}
-        className="text-2xl font-bold cursor-pointer
-          drop-shadow-[0_0_12px_rgba(0,247,255,0.4)]"
-      >
-        Bug<span className="text-[#00F7FF]">State</span>
-      </motion.div>
+    <header className="fixed top-0 left-0 right-0 z-50 bg-card/80 backdrop-blur-md border-b border-border/50">
+      <div className="container mx-auto px-4">
+        <div className="flex items-center justify-between h-16">
+          {/* Logo */}
+          <div className="flex items-center gap-2">
+           
+            <span className="text-xl font-bold text-foreground">BugTrack AI</span>
+          </div>
 
-      {/* Nav */}
-      <div className="uppercase flex space-x-16 font-bold text-sm tracking-wide">
-        {["Solutions", "Docs", "Pricing"].map((item, i) => (
-          <motion.div
-            key={item}
-            custom={i}
-            initial="hidden"
-            animate="visible"
-            variants={navItemVariants}
-            whileHover="hover"
-            className="relative cursor-pointer text-white/80 hover:text-white transition"
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex items-center gap-8">
+            {navLinks.map((link) => (
+              <a
+                key={link.label}
+                href={link.href}
+                className="text-muted-foreground hover:text-foreground transition-colors duration-200"
+              >
+                {link.label}
+              </a>
+            ))}
+          </nav>
+
+          {/* CTA Buttons */}
+          <div className="hidden md:flex items-center gap-3">
+
+            <Button className="cursor-pointer" variant="default">Get Started </Button>
+          </div>
+
+          {/* Mobile Menu Button */}
+          <button
+            className="md:hidden p-2"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
-            {item}
+            {isMenuOpen ? (
+              <X className="w-6 h-6 text-foreground" />
+            ) : (
+              <Menu className="w-6 h-6 text-foreground" />
+            )}
+          </button>
+        </div>
 
-            {/* Underline */}
-            <motion.span
-              initial={{ scaleX: 0 }}
-              whileHover={{ scaleX: 1 }}
-              transition={{ duration: 0.25 }}
-              className="absolute left-0 -bottom-1 h-0.5 w-full
-                bg-linear-to-r from-[#00F7FF] to-[#FE7F2D]
-                origin-left"
-            />
-          </motion.div>
-        ))}
+        {/* Mobile Menu */}
+        {isMenuOpen && (
+          <div className="md:hidden py-4 border-t border-border/50">
+            <nav className="flex flex-col gap-4">
+              {navLinks.map((link) => (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  className="text-muted-foreground hover:text-foreground transition-colors duration-200 py-2"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  {link.label}
+                </a>
+              ))}
+              <div className="flex flex-col gap-2 pt-4 border-t border-border/50">
+
+                <Button variant="default" className="w-full">Get Started </Button>
+              </div>
+            </nav>
+          </div>
+        )}
       </div>
-
-      {/* CTA */}
-      <motion.div
-        whileHover={{ scale: 1.08 }}
-        whileTap={{ scale: 0.95 }}
-        onClick={() => router.push("/pages/signup")}
-        className="text-sm font-semibold cursor-pointer px-5 py-2
-          transition-transform
-          "
-      >
-        Get Started
-      </motion.div>
-    </motion.header>
+    </header>
   );
 };
 

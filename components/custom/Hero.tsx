@@ -1,87 +1,68 @@
-"use client";
-import React from "react";
-import { motion } from "framer-motion";
+import { Button } from "@/components/ui/button";
+import { ArrowRight, Play } from "lucide-react";
 
-const Hero = () => {
+const HeroSection = () => {
   return (
-    <section className="text-white flex justify-center pt-24 overflow-hidden">
-      <div className="flex flex-col items-center text-center space-y-8 max-w-5xl px-6">
+    <section className="relative min-h-screen flex items-center  overflow-hidden">
+      {/* Background Gradient */}
+      <div className="absolute inset-0 z-0 hero-gradient" />
+      
+      {/* Decorative Elements */}
+      <div className="absolute inset-0 z-0 overflow-hidden">
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-primary/15 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
+        <div className="absolute top-1/2 right-1/3 w-64 h-64 bg-accent-foreground/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }} />
+      </div>
 
-        {/* Headline */}
-        <motion.h1
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="uppercase font-bold leading-tight
-          text-4xl sm:text-5xl md:text-6xl lg:text-8xl
-          drop-shadow-[0_0_35px_rgba(0,247,255,0.25)]"
-        >
-          <span className="text-[#00F7FF] drop-shadow-[0_0_25px_rgba(0,247,255,0.6)]">
-            Say
-          </span>{" "}
-          <span>No</span>{" "}
-          <span>To</span>{" "}
-          <span className="text-[#FE7F2D] drop-shadow-[0_0_25px_rgba(254,127,45,0.6)]">
-            Bugs!
-          </span>
-        </motion.h1>
-
-        {/* Subheading */}
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2, duration: 0.6 }}
-          className="text-base sm:text-lg md:text-xl text-white/80 max-w-3xl"
-        >
-          Build stable software faster with automated bug tracking & insights.
-        </motion.p>
-
-        {/* CTAs */}
-        <motion.div
-          initial={{ opacity: 0, y: 25 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4, duration: 0.6 }}
-          className="flex flex-col sm:flex-row gap-6 pt-6"
-        >
-          <motion.button
-            whileHover={{ scale: 1.08 }}
-            whileTap={{ scale: 0.96 }}
-            className="px-8 py-4 bg-[#4B9DA9] font-semibold
-              rounded-tl-lg rounded-br-lg cursor-pointer
-              shadow-[0_10px_40px_rgba(75,157,169,0.45)]
-              hover:shadow-[0_15px_60px_rgba(75,157,169,0.7)]
-              transition"
-          >
-            Start Tracking
-          </motion.button>
-
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.96 }}
-            className="px-8 py-4 bg-black font-semibold
-              rounded-tl-lg rounded-br-lg border border-white/10
-              shadow-[0_8px_30px_rgba(0,0,0,0.6)]
-              hover:bg-white/10 transition cursor-pointer"
-          >
-            Get Demo
-          </motion.button>
-        </motion.div>
-
-        {/* Trust Line */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.65, duration: 0.5 }}
-          className="flex flex-wrap justify-center gap-6 pt-4 text-sm text-white/60"
-        >
-          <span>✓ No credit card required</span>
-          <span>✓ Setup in 5 minutes</span>
-          <span>✓ Cancel anytime</span>
-        </motion.div>
-
+      <div className="container mx-auto px-1 relative z-10">
+        <div className="max-w-4xl mx-auto text-center">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-8 animate-fade-in">
+            <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+            <span className="text-sm text-primary">AI-Powered Error Tracking</span>
+          </div>
+          
+          <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold mb-8 animate-slide-up" style={{ animationDelay: '0.1s' }}>
+            <span className="text-white">Track, Analyze &</span>
+            <br />
+            <span className="text-gradient">Resolve Bugs Faster</span>
+          </h1>
+          
+          <p className="text-lg md:text-xl text-primary-foreground/80 mb-10 max-w-2xl mx-auto animate-slide-up" style={{ animationDelay: '0.2s' }}>
+            Integrate our SDK in minutes. Let AI explain your errors and suggest solutions. 
+            Get real-time notifications and manage all your projects in one dashboard.
+          </p>
+          
+          <div className="flex flex-col sm:flex-row gap-4 justify-center animate-slide-up" style={{ animationDelay: '0.3s' }}>
+            <Button variant="default" size="lg">
+              Start Free Trial
+              <ArrowRight className="w-5 h-5" />
+            </Button>
+            <Button variant="outline" size="lg">
+              <Play className="w-5 h-5" />
+              Watch Demo
+            </Button>
+          </div>
+          
+          <div className="mt-16 flex items-center gap-8 justify-center animate-fade-in" style={{ animationDelay: '0.5s' }}>
+            <div className="text-center">
+              <p className="text-3xl md:text-4xl font-bold text-primary-foreground">10K+</p>
+              <p className="text-sm text-primary-foreground/60">Developers</p>
+            </div>
+            <div className="w-px h-12 bg-primary-foreground/20" />
+            <div className="text-center">
+              <p className="text-3xl md:text-4xl font-bold text-primary-foreground">50M+</p>
+              <p className="text-sm text-primary-foreground/60">Errors Tracked</p>
+            </div>
+            <div className="w-px h-12 bg-primary-foreground/20" />
+            <div className="text-center">
+              <p className="text-3xl md:text-4xl font-bold text-primary-foreground">99.9%</p>
+              <p className="text-sm text-primary-foreground/60">Uptime</p>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );
 };
 
-export default Hero;
+export default HeroSection;
