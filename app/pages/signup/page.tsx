@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { LoginPayload, LoginResponse, SignUpPayload, SignUpResponse } from '@/types/auth'
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { toast } from 'sonner'
 const SignUp = () => {
@@ -16,11 +17,13 @@ const SignUp = () => {
   const [password, setPassword] = useState<string>("");
   const [name, setName] = useState<string>("");
   const [showtoast, setShowToast] = useState<boolean>(false);
+  const router = useRouter();
   const authHandler = async(type : "signup" | "login", data : LoginPayload | SignUpPayload)=>{
     try {
       if(type === "signup"){
         const response = await fetch(`${api}/auth/sign-up`, {
           method : "POST",
+          credentials : "include",
           headers : {
             "Content-Type" : "application/json"
           },
@@ -36,6 +39,7 @@ const SignUp = () => {
       }else if(type === "login"){
         const response = await fetch(`${api}/auth/login`, {
           method : "POST",
+          credentials : "include",
           headers : {
             "Content-Type" : "application/json"
           },
@@ -51,6 +55,7 @@ const SignUp = () => {
 
           setShowToast(true)
           toast.success("Login successful");
+          router.push("/pages/dashboard");
           console.log("Login successful", resData);
         }
       }else {
