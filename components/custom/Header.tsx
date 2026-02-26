@@ -2,9 +2,13 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X, Bug } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/providers/authProvider";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const router = useRouter();
+  const { user, isAuthenticated } = useAuth();
 
   const navLinks = [
     { label: "Features", href: "#features" },
@@ -20,7 +24,7 @@ const Header = () => {
           {/* Logo */}
           <div className="flex items-center gap-2">
            
-            <span className="text-xl font-bold text-foreground">BugTrack AI</span>
+            <span className="text-xl font-bold text-foreground">bugstate</span>
           </div>
 
           {/* Desktop Navigation */}
@@ -39,7 +43,7 @@ const Header = () => {
           {/* CTA Buttons */}
           <div className="hidden md:flex items-center gap-3">
 
-            <Button className="cursor-pointer" variant="default">Get Started </Button>
+            <Button onClick={()=>router.replace(isAuthenticated || user ? "/pages/dashboard" : "/pages/signup") } className="cursor-pointer" variant="default">{isAuthenticated ? "Dashboard" : "Get Started"}</Button>
           </div>
 
           {/* Mobile Menu Button */}
@@ -71,7 +75,7 @@ const Header = () => {
               ))}
               <div className="flex flex-col gap-2 pt-4 border-t border-border/50">
 
-                <Button variant="default" className="w-full">Get Started </Button>
+                <Button onClick={()=>router.replace(isAuthenticated ? "/pages/dashboard" : "/pages/signup") } variant="default" className="w-full">{isAuthenticated ? "Dashboard" : "Get Started"}</Button>
               </div>
             </nav>
           </div>

@@ -57,3 +57,26 @@ export const useGetErrorSummary = (projectId: string) => {
     },
   });
 };
+
+/* ──────────────────────────────────── */
+/* Fetch Errors by Status              */
+/* ──────────────────────────────────── */
+
+export const useGetErrorsByStatus = (
+  projectId: string,
+  status: "OPEN" | "RESOLVED" | "IGNORED"
+) => {
+  return useQuery({
+    queryKey: ["project-errors-by-status", projectId, status],
+    enabled: !!projectId && !!status,
+    queryFn: async () => {
+      const res = await fetch(
+        `${api}/errors/${projectId}/errors/status/${status}`,
+        { credentials: "include" }
+      );
+
+      if (!res.ok) throw new Error("Failed to fetch errors by status");
+      return res.json();
+    },
+  });
+};

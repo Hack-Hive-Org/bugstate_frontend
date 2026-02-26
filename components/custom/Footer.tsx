@@ -38,7 +38,7 @@ const Footer = () => {
               <div className="w-10 h-10 rounded-lg bg-primary flex items-center justify-center">
                 <Bug className="w-6 h-6 text-primary-foreground" />
               </div>
-              <span className="text-xl font-bold text-foreground">BugTrack AI</span>
+              <span className="text-xl font-bold text-foreground">bugstate</span>
             </div>
             <p className="text-muted-foreground mb-6 max-w-xs">
               AI-powered bug tracking for modern development teams. Track, analyze, and resolve errors faster.
@@ -79,7 +79,7 @@ const Footer = () => {
         {/* Bottom Bar */}
         <div className="mt-16 pt-8 border-t border-border flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-sm text-muted-foreground">
-            © {new Date().getFullYear()} BugTrack AI. All rights reserved.
+            © {new Date().getFullYear()} bugstate. All rights reserved.
           </p>
           <p className="text-sm text-muted-foreground">
             Made with care for developers worldwide

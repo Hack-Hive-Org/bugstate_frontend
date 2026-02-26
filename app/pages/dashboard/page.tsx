@@ -1,9 +1,10 @@
 "use client";
 import { css } from "@/styles/dashboard";
 import { useState, useEffect, FC } from "react";
-import { useQuery } from "@tanstack/react-query";
-import { getMyProjects, useGetApiKeys, useGetMyProjects, useRevokeApiKey } from "@/services/user.service";
+import { useGetApiKeys, useGetMyProjects, useRevokeApiKey, useGenerateApiKey, useGetUserProfile } from "@/services/user.service";
 import { useGetProjectErrors } from "@/services/error.service";
+import { useCreateProject } from "@/services/project.service";
+import { useAuth } from "@/providers/authProvider";
 // ─── Types ────────────────────────────────────────────────────────────────────
 
 // ─── Icons ────────────────────────────────────────────────────────────────────
@@ -19,6 +20,7 @@ const Icons: Record<string, FC> = {
   projects:     () => <Icon d="M2 7a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V7z M16 3l-4 4-4-4" />,
   key:          () => <Icon d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4" />,
   user:         () => <Icon d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2 M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z" />,
+  logout:       () => <Icon d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4 M16 17l5-5-5-5 M21 12H9" />,
   plus:         () => <Icon d="M12 5v14M5 12h14" />,
   settings:     () => <Icon d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6z M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />,
   copy:         () => <Icon d="M8 8V6a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2M6 8H4a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-2" />,
@@ -67,6 +69,9 @@ const Toast: FC<ToastProps> = ({ message, onDone }) => {
 // ─── Dashboard Page ───────────────────────────────────────────────────────────
 
 const DashboardPage: FC<DashboardPageProps> = ({ projects, onNavigate }) => {
+  const firstProjectId = projects[0]?.id ? String(projects[0].id) : "";
+  const { data: recentErrorsData } = useGetProjectErrors(firstProjectId, { limit: 4 });
+  const recentErrors = recentErrorsData?.errors ?? [];
 
   const totalOpen     = projects.reduce((s, p) => s + p.errors.open, 0);
   const totalResolved = projects.reduce((s, p) => s + p.errors.resolved, 0);
@@ -131,11 +136,14 @@ const DashboardPage: FC<DashboardPageProps> = ({ projects, onNavigate }) => {
             <div className="card-title">Recent Errors</div>
             <span className="badge status-open">{totalOpen} open</span>
           </div>
-          {mockErrors.slice(0, 4).map((e: ErrorGroup) => (
+          {recentErrors.length === 0 && (
+            <div style={{padding:"16px 0",fontSize:13,color:"var(--text3)"}}>No errors yet{firstProjectId ? "" : " — no projects found"}.</div>
+          )}
+          {recentErrors.map((e: any) => (
             <div key={e.id} style={{padding:"11px 0",borderBottom:"1px solid var(--border)",cursor:"pointer"}}>
               <div style={{display:"flex",alignItems:"flex-start",justifyContent:"space-between",gap:12}}>
                 <div style={{flex:1,minWidth:0}}>
-                  <div style={{fontSize:12,fontFamily:"var(--font-mono)",marginBottom:3,whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis",color:"var(--text2)"}}>{e.title}</div>
+                  <div style={{fontSize:12,fontFamily:"var(--font-mono)",marginBottom:3,whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis",color:"var(--text2)"}}>{e.message ?? e.title}</div>
                   <div style={{fontSize:11,color:"var(--text3)"}}>{e.service} · {e.occurrences} occurrences</div>
                 </div>
                 <span className={`badge status-${e.status.toLowerCase()}`}>{e.status}</span>
@@ -213,20 +221,19 @@ const ProjectsPage: FC<ProjectsPageProps> = ({ projects, onNavigate }) => {
 // ─── Create Project Page ──────────────────────────────────────────────────────
 
 const CreateProjectPage: FC<CreateProjectPageProps> = ({ onSuccess, toast }) => {
-  const [form, setForm]       = useState<CreateProjectFormState>({ name: "", description: "", environment: "production" });
-  const [loading, setLoading] = useState<boolean>(false);
+  const [form, setForm] = useState<CreateProjectFormState>({ name: "", description: "", environment: "production" });
+  const { mutate: createProject, isPending } = useCreateProject();
 
   const set = (k: keyof CreateProjectFormState) =>
     (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) =>
       setForm(f => ({ ...f, [k]: e.target.value }));
 
-  const handleSubmit = async (): Promise<void> => {
+  const handleSubmit = (): void => {
     if (!form.name) return;
-    setLoading(true);
-    await new Promise(r => setTimeout(r, 900));
-    setLoading(false);
-    toast("Project created successfully!");
-    onSuccess();
+    createProject(form, {
+      onSuccess: () => { toast("Project created successfully!"); onSuccess(); },
+      onError: (err) => { toast(err.message ?? "Failed to create project"); },
+    });
   };
 
   return (
@@ -253,8 +260,8 @@ const CreateProjectPage: FC<CreateProjectPageProps> = ({ onSuccess, toast }) => 
           </select>
           <div className="form-hint">Determines alert thresholds and visibility settings</div>
         </div>
-        <button className="btn btn-primary" onClick={handleSubmit} disabled={loading} style={{marginTop:4}}>
-          {loading ? "Creating..." : <><Icons.plus />Create Project</>}
+        <button className="btn btn-primary" onClick={handleSubmit} disabled={isPending} style={{marginTop:4}}>
+          {isPending ? "Creating..." : <><Icons.plus />Create Project</>}
         </button>
       </div>
     </div>
@@ -266,14 +273,19 @@ const CreateProjectPage: FC<CreateProjectPageProps> = ({ onSuccess, toast }) => 
 const ApiKeysPage: FC<ApiKeysPageProps> = ({ projects, toast }) => {
   const [selectedProject, setSelectedProject] = useState<string>("");
   const [newKey, setNewKey] = useState<string | null>(null);
-  const [showKey, setShowKey] = useState<boolean>(false);
   const [copied, setCopied] = useState<boolean>(false);
 
-  // Fetch API keys for selected project
   const { data, isLoading } = useGetApiKeys(selectedProject);
-
-  // Revoke mutation
   const { mutate: revokeKey, isPending: isRevoking } = useRevokeApiKey();
+  const { mutate: generateKey, isPending: isGenerating } = useGenerateApiKey();
+
+  const handleGenerate = (): void => {
+    if (!selectedProject) return;
+    generateKey(selectedProject, {
+      onSuccess: (res) => { setNewKey(res.api_key); toast("API key generated — copy it now, it won't be shown again!"); },
+      onError: () => { toast("Failed to generate API key"); },
+    });
+  };
 
   const keys = data?.apiKeys ?? [];
 
@@ -334,7 +346,26 @@ const ApiKeysPage: FC<ApiKeysPageProps> = ({ projects, toast }) => {
               </select>
             </div>
 
-            {/* If you later connect real generate endpoint, plug it here */}
+            <button
+              className="btn btn-primary"
+              disabled={!selectedProject || isGenerating}
+              onClick={handleGenerate}
+              style={{marginTop:8}}
+            >
+              {isGenerating ? "Generating..." : <><Icons.plus />Generate Key</>}
+            </button>
+
+            {newKey && (
+              <div style={{marginTop:16,background:"var(--surface2)",border:"1px solid var(--border2)",borderRadius:8,padding:"12px 14px"}}>
+                <div style={{fontSize:11,color:"var(--text3)",marginBottom:6}}>New API Key — copy it now:</div>
+                <div style={{display:"flex",alignItems:"center",gap:8}}>
+                  <code style={{flex:1,fontSize:11,fontFamily:"var(--font-mono)",wordBreak:"break-all",color:"var(--primary)"}}>{newKey}</code>
+                  <button className="btn btn-ghost btn-icon btn-sm" onClick={() => { navigator.clipboard?.writeText(newKey); setCopied(true); toast("Copied!"); setTimeout(() => setCopied(false), 2000); }}>
+                    {copied ? <Icons.check /> : <Icons.copy />}
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
         </div>
 
@@ -434,9 +465,15 @@ const ApiKeysPage: FC<ApiKeysPageProps> = ({ projects, toast }) => {
 // ─── Profile Page ─────────────────────────────────────────────────────────────
 
 const ProfilePage: FC<ProfilePageProps> = ({ toast }) => {
-  const [form, setForm]     = useState<UpdateProfileFormState>({ name: mockUser.name, email: mockUser.email });
+  const { data: profileData, isLoading: profileLoading } = useGetUserProfile();
+  const user = profileData?.user;
+  const [form, setForm]     = useState<UpdateProfileFormState>({ name: "", email: "" });
   const [pwForm, setPwForm] = useState<ChangePasswordFormState>({ current: "", next: "", confirm: "" });
   const [showPw, setShowPw] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (user) setForm({ name: user.name, email: user.email });
+  }, [user]);
 
   const set   = (k: keyof UpdateProfileFormState)  => (e: React.ChangeEvent<HTMLInputElement>) => setForm(f => ({ ...f, [k]: e.target.value }));
   const setPw = (k: keyof ChangePasswordFormState) => (e: React.ChangeEvent<HTMLInputElement>) => setPwForm(f => ({ ...f, [k]: e.target.value }));
@@ -447,16 +484,18 @@ const ProfilePage: FC<ProfilePageProps> = ({ toast }) => {
     { key: "confirm", label: "Confirm New Password", idx: 2 },
   ];
 
+  if (profileLoading) return <div style={{padding:32,fontSize:13,color:"var(--text3)"}}>Loading profile...</div>;
+
   return (
     <div className="page-enter">
       <div className="profile-header">
-        <div className="profile-avatar">{mockUser.name.split(" ").map((n: string) => n[0]).join("")}</div>
+        <div className="profile-avatar">{user?.name.split(" ").map((n: string) => n[0]).join("") ?? "?"}</div>
         <div style={{flex:1,position:"relative",zIndex:1}}>
-          <div className="profile-name">{mockUser.name}</div>
-          <div className="profile-email">{mockUser.email}</div>
+          <div className="profile-name">{user?.name}</div>
+          <div className="profile-email">{user?.email}</div>
           <div style={{marginTop:8,display:"flex",gap:8,alignItems:"center"}}>
-            <span className="badge b-active">Active</span>
-            <span style={{fontSize:11,color:"var(--text3)"}}>Member since {mockUser.createdAt}</span>
+            <span className="badge b-active">{user?.isActive ? "Active" : "Inactive"}</span>
+            <span style={{fontSize:11,color:"var(--text3)"}}>Member since {user?.createdAt ? new Date(user.createdAt).toLocaleDateString() : ""}</span>
           </div>
         </div>
       </div>
@@ -656,11 +695,11 @@ const PAGE_TITLES: Record<NavPage, PageTitleConfig> = {
 // ─── App Shell ────────────────────────────────────────────────────────────────
 
 export default function App() {
-const {data, isLoading, error , isError} = useGetMyProjects();
-//   console.log("Projects data:", { data, isLoading, error, isError });
+  const { user: currentUser, logout } = useAuth();
+  const { data, isLoading, error, isError } = useGetMyProjects();
   const [active, setActive] = useState<NavPage>("dashboard");
   const projects = data?.projects ?? [];
-  const [toast, setToast]   = useState<string | null>(null);
+  const [toast, setToast] = useState<string | null>(null);
 
   const showToast = (msg: string): void => setToast(msg);
   const navItems: NavItem[] = NAV_ITEMS.filter(p => !p.hidden);
@@ -699,13 +738,21 @@ const {data, isLoading, error , isError} = useGetMyProjects();
 
           <div className="sidebar-footer">
             <div className="user-card" onClick={() => setActive("profile")}>
-              <div className="avatar">{mockUser.name.split(" ").map((n: string) => n[0]).join("")}</div>
+              <div className="avatar">{currentUser?.name?.split(" ").map((n: string) => n[0]).join("") ?? "…"}</div>
               <div style={{flex:1,minWidth:0}}>
-                <div className="user-name">{mockUser.name}</div>
-                <div className="user-email" style={{overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{mockUser.email}</div>
+                <div className="user-name">{currentUser?.name ?? ""}</div>
+                <div className="user-email" style={{overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{currentUser?.email ?? ""}</div>
               </div>
               <span style={{color:"var(--text3)",flexShrink:0}}><Icons.chevronRight /></span>
             </div>
+            <button
+              className="btn btn-ghost btn-sm"
+              onClick={logout}
+              title="Sign out"
+              style={{width:"100%",marginTop:8,display:"flex",alignItems:"center",justifyContent:"center",gap:6,color:"var(--text3)",fontSize:12}}
+            >
+              <Icons.logout />Sign out
+            </button>
           </div>
         </aside>
 

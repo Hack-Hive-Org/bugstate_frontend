@@ -5,10 +5,17 @@ import { IGenerateApiKeyResponse, IGetApiKeysResponse, IRevokeApiKeyResponse, IU
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 export const getUserProfile = async (): Promise<IUserProfileResponse> => {
-  return apiFetch<IUserProfileResponse>("/profile", {
+  return apiFetch<IUserProfileResponse>("/user/profile", {
     method: "GET",
   });
 };
+
+export const useGetUserProfile = () =>
+  useQuery<IUserProfileResponse>({
+    queryKey: ["user-profile"],
+    queryFn: getUserProfile,
+  });
+
 export const getMyProjects = async (): Promise<IUserProjectsResponse> => {
   return apiFetch<IUserProjectsResponse>("/user/projects", {
     method: "GET",
@@ -17,11 +24,21 @@ export const getMyProjects = async (): Promise<IUserProjectsResponse> => {
 
 
 export const generateApiKey = async (
-  projectId: number
+  projectId: string | number
 ): Promise<IGenerateApiKeyResponse> => {
-  return apiFetch<IGenerateApiKeyResponse>("/generate-api-key", {
+  return apiFetch<IGenerateApiKeyResponse>("/user/generate-api-key", {
     method: "POST",
     body: JSON.stringify({ projectId }),
+  });
+};
+
+export const useGenerateApiKey = () => {
+  const queryClient = useQueryClient();
+  return useMutation<IGenerateApiKeyResponse, Error, string | number>({
+    mutationFn: generateApiKey,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["api-keys"] });
+    },
   });
 };
 
@@ -58,7 +75,7 @@ export const useGetApiKeys = (projectId: string) =>
 export const revokeApiKey = async (
   payload: RevokeApiKeyPayload
 ): Promise<IRevokeApiKeyResponse> => {
-  return apiFetch<IRevokeApiKeyResponse>("/revoke-api-key", {
+  return apiFetch<IRevokeApiKeyResponse>("/user/revoke-api-key", {
     method: "POST",
     body: JSON.stringify(payload),
   });

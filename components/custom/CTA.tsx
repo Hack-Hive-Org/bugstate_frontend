@@ -10,7 +10,7 @@ const CTASection = () => {
             Ready to squash bugs smarter?
           </h2>
           <p className="text-lg md:text-xl text-primary-foreground/80 mb-8 max-w-2xl mx-auto">
-            Join thousands of developers who trust BugTrack AI to catch, analyze, and resolve errors faster than ever.
+            Join thousands of developers who trust bugstate to catch, analyze, and resolve errors faster than ever.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button variant="default" size="lg">
