@@ -1,7 +1,21 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Cabin, Changa_One, Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-
+import Navbar from "@/components/ui/navbar";
+import { AuthProvider } from "@/components/provider/AuthProvider";
+import { Toaster } from "sonner";
+const changaOne = Changa_One({
+  subsets : ["latin"],
+  weight : ["400"],
+  variable : "--font-changa-one",
+  display : "swap"
+})
+const cabin = Cabin({
+  subsets : ['latin'],
+  weight : ['400', '500', '600', '700'],
+  variable : "--font-cabin",
+  display : "swap"
+});
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -25,9 +39,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${cabin.variable} ${geistMono.variable} ${changaOne.variable} antialiased`}
       >
+        <AuthProvider>
+
+        <Navbar/>
         {children}
+        <Toaster/>
+        </AuthProvider>
       </body>
     </html>
   );
