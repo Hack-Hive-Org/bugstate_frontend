@@ -32,6 +32,7 @@ export default function Navbar() {
         <div className="hidden md:flex items-center gap-6 font-cabin">
           <Link href="/workshops">Workshops</Link>
           <Link href="/projects">Projects</Link>
+          <Link href="/blogs">Blog</Link>
           <Link href="/about">About</Link>
              {!user? (
             <></>) : (<Link href="/profile">Profile</Link>)
@@ -59,6 +60,7 @@ export default function Navbar() {
               <div className="flex flex-col gap-6 mt-6 font-cabin">
                 <Link href="/workshops">Workshops</Link>
                 <Link href="/projects">Projects</Link>
+                <Link href="/blogs">Blog</Link>
                 <Link href="/about">About</Link>
 
                 {!user ? (
