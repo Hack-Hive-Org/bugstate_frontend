@@ -55,10 +55,10 @@ const Footer = () => {
               Get in Touch
             </h4>
 
-            <p className="text-slate-500 text-sm leading-relaxed">
-              Have a project in mind? Reach out and let&apos;s build
-              something great together.
-            </p>
+            <div className="space-y-2 text-slate-500 text-sm">
+              <p>goyalsumit651@gmail.com</p>
+              <p>+91 79829 13622</p>
+            </div>
 
             <Link
               href="/contact"
