@@ -2,6 +2,8 @@
 
 import { Button } from "@/components/ui/button"
 import Footer from "@/components/ui/footer"
+import { db } from "@/lib/firebase"
+import { collection, addDoc, serverTimestamp } from "firebase/firestore"
 import { Mail, MapPin, Phone } from "lucide-react"
 import { useState } from "react"
 import { toast } from "sonner"
@@ -13,11 +15,23 @@ const Contact = () => {
     service: "",
     message: "",
   })
+  const [submitting, setSubmitting] = useState(false)
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    toast.success("Thanks for reaching out! We'll get back to you soon.")
-    setFormData({ name: "", email: "", service: "", message: "" })
+    setSubmitting(true)
+    try {
+      await addDoc(collection(db, "contact_submissions"), {
+        ...formData,
+        createdAt: serverTimestamp(),
+      })
+      toast.success("Thanks for reaching out! We'll get back to you soon.")
+      setFormData({ name: "", email: "", service: "", message: "" })
+    } catch {
+      toast.error("Something went wrong. Please try again.")
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   return (
@@ -101,9 +115,10 @@ const Contact = () => {
                 <Button
                   type="submit"
                   size="lg"
+                  disabled={submitting}
                   className="w-full bg-indigo-600 hover:bg-indigo-700 text-white shadow-lg shadow-indigo-200"
                 >
-                  Send Message
+                  {submitting ? "Sending..." : "Send Message"}
                 </Button>
               </form>
             </div>
