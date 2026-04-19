@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Cabin, Changa_One, Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
 import Navbar from "@/components/ui/navbar";
 import { AuthProvider } from "@/components/provider/AuthProvider";
 import { Toaster } from "sonner";
@@ -30,30 +29,30 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://bugstate.dev"),
 
   title: {
-    default: "BugState",
+    default: "BugState — Digital Services & Web Solutions",
     template: "%s | BugState"
   },
 
   description:
-    "BugState helps developers learn backend engineering through hands-on workshops and real-world projects. Build scalable systems, learn microservices, Docker, and modern architecture.",
+    "BugState delivers professional website development, mobile apps, landing pages, ad campaigns, branded emails, and automation solutions to help your business grow.",
 
   keywords: [
-    "backend development",
-    "spring boot workshop",
-    "developer workshops",
-    "live coding projects",
-    "microservices",
-    "docker",
-    "event driven architecture",
-    "developer learning platform"
+    "website development",
+    "mobile app development",
+    "landing pages",
+    "ad campaigns",
+    "branded emails",
+    "website automation",
+    "web designing",
+    "digital services"
   ],
 
   authors: [{ name: "BugState" }],
 
   openGraph: {
-    title: "BugState — Learn Backend Engineering Through Real Projects",
+    title: "BugState — Digital Services & Web Solutions",
     description:
-      "Join developer workshops and build production-grade systems with BugState.",
+      "Professional website development, mobile apps, ad campaigns, and digital solutions for your business.",
     url: "https://bugstate.dev",
     siteName: "BugState",
     locale: "en_US",
@@ -63,16 +62,16 @@ export const metadata: Metadata = {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "BugState Developer Platform"
+        alt: "BugState Digital Services"
       }
     ]
   },
 
   twitter: {
     card: "summary_large_image",
-    title: "BugState — Developer Workshops & Live Projects",
+    title: "BugState — Digital Services & Web Solutions",
     description:
-      "Learn backend engineering with hands-on workshops and real-world projects.",
+      "Professional website development, mobile apps, ad campaigns, and digital solutions for your business.",
     images: ["/og-image.png"]
   },
 

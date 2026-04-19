@@ -1,16 +1,17 @@
 import Footer from "@/components/ui/footer";
-import ProjectsComingSoon from "@/components/ui/projects-coming-soon";
-import WorkshopBanner from "@/components/ui/workhshop-banner";
-import WorkshopsComingSoon from "@/components/ui/workshop-coming-soon";
-
+import HeroSection from "@/components/ui/hero-section";
+import ServicesSection from "@/components/ui/services-section";
+import FeaturesSection from "@/components/ui/features-section";
+import CTASection from "@/components/ui/cta-section";
 
 export default function Home() {
   return (
-    <div className="">
-     <WorkshopBanner/>
-     <ProjectsComingSoon/>
-     <WorkshopsComingSoon/>
-     <Footer/>
+    <div>
+      <HeroSection />
+      <ServicesSection />
+      <FeaturesSection />
+      <CTASection />
+      <Footer />
     </div>
   );
 }

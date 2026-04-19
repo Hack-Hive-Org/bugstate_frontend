@@ -3,7 +3,7 @@ export const siteConfig = {
   url: "https://bugstate.dev",
   ogImage: "/og-image.png",
   description:
-    "Deep-dive articles on backend engineering, distributed systems, and the craft of building production software.",
+    "We build websites, landing pages, mobile apps, ad campaigns, branded emails, and automation solutions that help businesses grow.",
   author: {
     name: "BugState",
     url: "https://bugstate.dev",
@@ -11,9 +11,18 @@ export const siteConfig = {
   blog: {
     title: "BugState Blog",
     description:
-      "Essays, tutorials, and notes on backend engineering and modern architecture.",
+      "Insights, tips, and trends on web development, digital marketing, and growing your business online.",
     postsPerPage: 12,
   },
+  services: [
+    "Website Development",
+    "Ad Campaign",
+    "Landing Pages",
+    "Branded Emails",
+    "Website Automation",
+    "Mobile Application Development",
+    "Web Designing",
+  ],
 } as const;
 
 export type SiteConfig = typeof siteConfig;

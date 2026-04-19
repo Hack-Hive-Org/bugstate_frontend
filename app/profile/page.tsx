@@ -34,21 +34,21 @@ const Profile = () => {
 
   if (!user) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <p>Please login to view your profile.</p>
+      <div className="min-h-screen flex items-center justify-center bg-white">
+        <p className="text-slate-500 font-cabin">Please login to view your profile.</p>
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-700 via-purple-600 to-indigo-600 text-white px-6 py-16">
+    <div className="min-h-screen bg-slate-50 px-6 py-16">
 
-      <div className="max-w-5xl mx-auto space-y-10">
+      <div className="max-w-5xl mx-auto space-y-8">
 
         {/* User Info */}
-      <div className="bg-white/10 border font-cabin border-white/20 backdrop-blur-lg rounded-2xl p-8">
+      <div className="bg-white border font-cabin border-slate-200 rounded-2xl p-8 shadow-sm">
 
-  <h2 className="text-2xl font-semibold mb-6">
+  <h2 className="text-2xl font-semibold mb-6 text-slate-900">
     Your Profile
   </h2>
 
@@ -58,17 +58,17 @@ const Profile = () => {
     <img
       src={avatar}
       alt="User Avatar"
-      className="w-20 h-20 rounded-full border-2 border-white/30"
+      className="w-20 h-20 rounded-full border-2 border-slate-200 shadow-sm"
     />
 
     {/* User Details */}
     <div className="space-y-1">
 
-      <p className="text-xl font-semibold text-white">
+      <p className="text-xl font-semibold text-slate-900">
         {name}
       </p>
 
-      <p className="text-purple-200 text-sm">
+      <p className="text-slate-500 text-sm">
         {user.email}
       </p>
 
@@ -79,16 +79,16 @@ const Profile = () => {
 </div>
 
         {/* Registered Workshops */}
-        <div className="bg-white/10 border font-cabin border-white/20 backdrop-blur-lg rounded-2xl p-8">
+        <div className="bg-white border font-cabin border-slate-200 rounded-2xl p-8 shadow-sm">
 
-          <h2 className="text-2xl font-semibold mb-6">
+          <h2 className="text-2xl font-semibold mb-6 text-slate-900">
             Registered Workshops
           </h2>
 
           {loading ? (
-            <p className="text-purple-200">Loading workshops...</p>
+            <p className="text-slate-500">Loading workshops...</p>
           ) : registrations.length === 0 ? (
-            <p className="text-purple-200">
+            <p className="text-slate-500">
               You haven't registered for any workshops yet.
             </p>
           ) : (
@@ -97,19 +97,19 @@ const Profile = () => {
               {registrations.map((workshop) => (
                 <div
                   key={workshop.id}
-                  className="bg-white/10 border border-white/20 rounded-xl p-4 flex justify-between items-center"
+                  className="bg-slate-50 border border-slate-200 rounded-xl p-4 flex justify-between items-center"
                 >
                   <div>
-                    <p className="font-semibold text-white">
+                    <p className="font-semibold text-slate-900">
                       {workshop.workshop_name}
                     </p>
 
-                    <p className="text-sm text-purple-200">
+                    <p className="text-sm text-slate-500">
                       Workshop ID: {workshop.workshop}
                     </p>
                   </div>
 
-                  <Button size="sm" variant="secondary">
+                  <Button size="sm" variant="secondary" className="bg-indigo-50 text-indigo-700 hover:bg-indigo-100">
                     Registered
                   </Button>
                 </div>

@@ -4,53 +4,74 @@ import Link from "next/link"
 
 const Footer = () => {
   return (
-    <footer className="bg-white px-6 py-14 border-t font-cabin">
+    <footer className="bg-slate-50 px-6 py-16 border-t border-slate-200 font-cabin">
 
       <div className="max-w-7xl mx-auto space-y-10">
 
-        <div className="grid md:grid-cols-3 gap-10">
+        <div className="grid md:grid-cols-4 gap-10">
 
-          <div>
-            <h3 className="text-3xl font-changa-one font-bold text-gray-900">
+          <div className="md:col-span-1">
+            <h3 className="text-2xl font-changa-one font-bold text-slate-900">
               BugState
             </h3>
 
-            <p className="text-gray-600 mt-3 text-sm font-cabin">
-              Helping developers learn backend engineering through hands-on
-              workshops and real-world projects.
+            <p className="text-slate-500 mt-3 text-sm leading-relaxed">
+              Digital services that help businesses build, grow, and
+              scale their online presence.
             </p>
           </div>
 
           <div>
-            <h4 className="font-semibold text-gray-900 mb-3">
-              Navigation
+            <h4 className="font-semibold text-slate-900 mb-4 text-sm uppercase tracking-wider">
+              Services
             </h4>
 
-            <div className="flex flex-col gap-2 text-gray-600 text-sm">
-              <Link href="/workshops">Workshops</Link>
-              <Link href="/projects">Projects</Link>
-              <Link href="/blogs">Blog</Link>
-              <Link href="/about">About</Link>
-              <Link href="/profile">Profile</Link>
-              <Link href="/rss.xml">RSS</Link>
+            <div className="flex flex-col gap-2.5 text-slate-500 text-sm">
+              <Link href="/services" className="hover:text-indigo-600 transition-colors">Website Development</Link>
+              <Link href="/services" className="hover:text-indigo-600 transition-colors">Ad Campaign</Link>
+              <Link href="/services" className="hover:text-indigo-600 transition-colors">Landing Pages</Link>
+              <Link href="/services" className="hover:text-indigo-600 transition-colors">Branded Emails</Link>
+              <Link href="/services" className="hover:text-indigo-600 transition-colors">Website Automation</Link>
+              <Link href="/services" className="hover:text-indigo-600 transition-colors">Mobile Apps</Link>
+              <Link href="/services" className="hover:text-indigo-600 transition-colors">Web Designing</Link>
             </div>
           </div>
 
           <div>
-            <h4 className="font-semibold text-gray-900 mb-3">
-              Community
+            <h4 className="font-semibold text-slate-900 mb-4 text-sm uppercase tracking-wider">
+              Company
             </h4>
 
-            <p className="text-gray-600 text-sm">
-              Join upcoming workshops and collaborate with developers
-              building real production systems.
+            <div className="flex flex-col gap-2.5 text-slate-500 text-sm">
+              <Link href="/about" className="hover:text-indigo-600 transition-colors">About</Link>
+              <Link href="/blogs" className="hover:text-indigo-600 transition-colors">Blog</Link>
+              <Link href="/contact" className="hover:text-indigo-600 transition-colors">Contact</Link>
+              <Link href="/rss.xml" className="hover:text-indigo-600 transition-colors">RSS</Link>
+            </div>
+          </div>
+
+          <div>
+            <h4 className="font-semibold text-slate-900 mb-4 text-sm uppercase tracking-wider">
+              Get in Touch
+            </h4>
+
+            <p className="text-slate-500 text-sm leading-relaxed">
+              Have a project in mind? Reach out and let&apos;s build
+              something great together.
             </p>
+
+            <Link
+              href="/contact"
+              className="inline-block mt-4 text-indigo-600 text-sm font-medium hover:text-indigo-800 transition-colors"
+            >
+              Contact Us &rarr;
+            </Link>
           </div>
 
         </div>
 
-        <div className="border-t pt-6 text-sm text-gray-500 text-center">
-          © {new Date().getFullYear()} BugState. All rights reserved.
+        <div className="border-t border-slate-200 pt-8 text-sm text-slate-400 text-center">
+          &copy; {new Date().getFullYear()} BugState. All rights reserved.
         </div>
 
       </div>

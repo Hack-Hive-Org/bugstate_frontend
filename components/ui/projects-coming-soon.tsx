@@ -20,36 +20,37 @@ const ProjectsComingSoon = () => {
   ]
 
   return (
-    <section className="min-h-screen font-cabin flex items-center bg-white px-6 py-20">
+    <section className="font-cabin bg-white px-6 py-24">
 
       <div className="max-w-7xl mx-auto w-full space-y-14">
 
         <div className="text-center space-y-4">
-          <h2 className="text-4xl md:text-5xl font-changa-one font-bold text-gray-900">
-            Live Projects <span className="text-purple-600">Coming Soon</span>
+          <p className="text-sm font-semibold text-indigo-600 uppercase tracking-wider">Open Source</p>
+          <h2 className="text-4xl md:text-5xl font-changa-one font-bold text-slate-900">
+            Live Projects Coming Soon
           </h2>
 
-          <p className="text-gray-600 max-w-xl mx-auto">
+          <p className="text-slate-500 max-w-xl mx-auto leading-relaxed">
             Work on real-world engineering problems and collaborate with developers
             building production-grade systems.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-3 gap-6">
           {projects.map((project, i) => (
             <div
               key={i}
-              className="border border-gray-200 rounded-xl p-6 hover:shadow-xl transition"
+              className="border border-slate-200 rounded-2xl p-7 hover:shadow-lg hover:shadow-indigo-50 transition-all duration-300"
             >
-              <h3 className="text-xl font-semibold mb-3 text-gray-900">
+              <h3 className="text-lg font-semibold mb-3 text-slate-900">
                 {project.name}
               </h3>
 
-              <p className="text-gray-600 text-sm">
+              <p className="text-slate-500 text-sm leading-relaxed">
                 {project.description}
               </p>
 
-              <div className="mt-4 text-purple-600 text-sm font-medium">
+              <div className="mt-5 text-indigo-600 text-sm font-medium">
                 Launching Soon
               </div>
             </div>
