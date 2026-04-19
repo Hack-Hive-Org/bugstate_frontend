@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Cabin, Changa_One, Geist, Geist_Mono } from "next/font/google";
 import Navbar from "@/components/ui/navbar";
+import './globals.css';
 import { AuthProvider } from "@/components/provider/AuthProvider";
 import { Toaster } from "sonner";
 const changaOne = Changa_One({
