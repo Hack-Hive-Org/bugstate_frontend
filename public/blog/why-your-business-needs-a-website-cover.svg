@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4f46e5;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#7c3aed;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg1)" />
+  <circle cx="1050" cy="120" r="180" fill="rgba(255,255,255,0.05)" />
+  <circle cx="150" cy="500" r="220" fill="rgba(255,255,255,0.05)" />
+  <rect x="80" y="200" width="400" height="260" rx="16" fill="rgba(255,255,255,0.12)" />
+  <rect x="100" y="220" width="360" height="12" rx="6" fill="rgba(255,255,255,0.3)" />
+  <rect x="100" y="248" width="280" height="12" rx="6" fill="rgba(255,255,255,0.2)" />
+  <rect x="100" y="280" width="360" height="140" rx="8" fill="rgba(255,255,255,0.08)" />
+  <circle cx="280" cy="350" r="30" fill="rgba(255,255,255,0.15)" />
+  <polygon points="270,340 295,350 270,360" fill="rgba(255,255,255,0.4)" />
+  <rect x="100" y="435" width="100" height="10" rx="5" fill="rgba(255,255,255,0.2)" />
+  <text x="600" y="300" font-family="system-ui, sans-serif" font-size="42" font-weight="bold" fill="white" text-anchor="middle">Why Your Business</text>
+  <text x="600" y="355" font-family="system-ui, sans-serif" font-size="42" font-weight="bold" fill="white" text-anchor="middle">Needs a Website in 2026</text>
+  <text x="600" y="410" font-family="system-ui, sans-serif" font-size="18" fill="rgba(255,255,255,0.7)" text-anchor="middle">BugState Blog</text>
+</svg>

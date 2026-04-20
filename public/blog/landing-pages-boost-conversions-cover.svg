@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#059669;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0891b2;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg2)" />
+  <circle cx="1000" cy="150" r="200" fill="rgba(255,255,255,0.05)" />
+  <circle cx="200" cy="480" r="250" fill="rgba(255,255,255,0.05)" />
+  <rect x="750" y="180" width="350" height="280" rx="16" fill="rgba(255,255,255,0.12)" />
+  <rect x="780" y="210" width="120" height="36" rx="18" fill="rgba(255,255,255,0.25)" />
+  <rect x="780" y="264" width="290" height="10" rx="5" fill="rgba(255,255,255,0.2)" />
+  <rect x="780" y="286" width="240" height="10" rx="5" fill="rgba(255,255,255,0.15)" />
+  <rect x="780" y="320" width="140" height="40" rx="8" fill="rgba(255,255,255,0.3)" />
+  <text x="850" y="346" font-family="system-ui, sans-serif" font-size="14" font-weight="bold" fill="white" text-anchor="middle">Convert Now</text>
+  <path d="M780 400 L830 380 L880 395 L930 360 L980 370 L1030 340 L1070 350" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="3" />
+  <text x="400" y="280" font-family="system-ui, sans-serif" font-size="42" font-weight="bold" fill="white" text-anchor="middle">How Landing Pages</text>
+  <text x="400" y="335" font-family="system-ui, sans-serif" font-size="42" font-weight="bold" fill="white" text-anchor="middle">Boost Conversions</text>
+  <text x="400" y="390" font-family="system-ui, sans-serif" font-size="18" fill="rgba(255,255,255,0.7)" text-anchor="middle">BugState Blog</text>
+</svg>
