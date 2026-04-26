@@ -8,8 +8,13 @@ import {
   SheetContent,
   SheetTrigger,
 } from "@/components/ui/sheet"
+import { useAuth } from "@/components/provider/AuthProvider"
+import { isAdmin } from "@/lib/admin"
 
 export default function Navbar() {
+  const { user } = useAuth()
+  const showAdmin = isAdmin(user?.email)
+
   return (
     <nav className="sticky top-0 z-50 w-full border-b border-slate-200/80 bg-white/80 backdrop-blur-xl">
       <div className="container mx-auto flex h-16 items-center justify-between px-6">
@@ -24,6 +29,9 @@ export default function Navbar() {
           <Link href="/services" className="text-sm font-medium text-slate-600 hover:text-indigo-600 transition-colors">Services</Link>
           <Link href="/about" className="text-sm font-medium text-slate-600 hover:text-indigo-600 transition-colors">About</Link>
           <Link href="/blogs" className="text-sm font-medium text-slate-600 hover:text-indigo-600 transition-colors">Blog</Link>
+          {showAdmin && (
+            <Link href="/admin" className="text-sm font-medium text-indigo-600 hover:text-indigo-700 transition-colors">Admin</Link>
+          )}
           <Link href="/contact">
             <Button className="bg-indigo-600 hover:bg-indigo-700 text-white shadow-sm shadow-indigo-200 font-medium text-sm px-5">
               Contact Us
@@ -45,6 +53,9 @@ export default function Navbar() {
                 <Link href="/services" className="text-slate-700 font-medium hover:text-indigo-600 transition-colors">Services</Link>
                 <Link href="/about" className="text-slate-700 font-medium hover:text-indigo-600 transition-colors">About</Link>
                 <Link href="/blogs" className="text-slate-700 font-medium hover:text-indigo-600 transition-colors">Blog</Link>
+                {showAdmin && (
+                  <Link href="/admin" className="text-indigo-600 font-medium hover:text-indigo-700 transition-colors">Admin</Link>
+                )}
                 <Link href="/contact">
                   <Button className="bg-indigo-600 hover:bg-indigo-700 text-white w-full shadow-sm">
                     Contact Us
