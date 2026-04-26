@@ -1,0 +1,156 @@
+---
+title: "The Hidden Cost of a Slow Website (and Exactly How to Fix It)"
+description: "Slow websites lose customers, rankings, and revenue. Learn how to measure Core Web Vitals and the proven techniques to make your site lightning fast in 2026."
+date: "2026-04-17"
+author: "BugState"
+tags:
+  - Website
+  - Performance
+  - SEO
+  - Core Web Vitals
+cover: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80"
+---
+
+A slow website is the most expensive bug you don't see. Every extra second of load time **silently bleeds revenue** — through lost conversions, lower search rankings, and worse ad performance.
+
+Most business owners have no idea how badly their site performs. Let's fix that.
+
+![Web performance dashboard with metrics](https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80)
+
+## How much does slow really cost?
+
+The data is brutal:
+
+- **+1 second** load time = **7% drop** in conversions (Akamai)
+- **3+ seconds** = **53% of mobile visitors leave** (Google)
+- **Amazon** found every 100ms of latency cost them **1% in sales**
+- Pages loading in **1 second convert 3x better** than those loading in 5 seconds
+
+If your site does $50,000/month in revenue and loads in 5 seconds, getting to 2 seconds could add **$10,000–$15,000 in monthly revenue**. No new traffic required.
+
+## Core Web Vitals — what Google actually measures
+
+Since 2021, Google uses **Core Web Vitals** as ranking signals. The three that matter:
+
+### 1. Largest Contentful Paint (LCP)
+
+How long until the **biggest visible element** loads. Usually a hero image or headline.
+
+- **Good**: under 2.5s
+- **Needs work**: 2.5–4s
+- **Poor**: over 4s
+
+### 2. Interaction to Next Paint (INP)
+
+How responsive your site **feels** when users click, tap, or type.
+
+- **Good**: under 200ms
+- **Needs work**: 200–500ms
+- **Poor**: over 500ms
+
+### 3. Cumulative Layout Shift (CLS)
+
+How much the page **jumps around** while loading. Caused by images without dimensions, late-loading ads, or fonts.
+
+- **Good**: under 0.1
+- **Poor**: over 0.25
+
+## How to measure your site (free tools)
+
+You can audit your site in 5 minutes:
+
+![Developer testing website performance](https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&w=1200&q=80)
+
+1. **PageSpeed Insights** (`pagespeed.web.dev`) — free, includes mobile + desktop
+2. **Chrome DevTools** → Lighthouse tab
+3. **WebPageTest** (`webpagetest.org`) — for deep analysis
+4. **Google Search Console** → Core Web Vitals report
+
+> Important: test your site in **incognito mode**. Browser extensions inflate test scores.
+
+## The 10 most common causes of slow sites
+
+In our audits, the same issues come up repeatedly:
+
+1. **Unoptimized images** (the #1 cause — by far)
+2. Render-blocking JavaScript and CSS
+3. Too many third-party scripts (chat, pixels, analytics)
+4. No CDN — serving assets from one server
+5. Excessive web fonts and font weights
+6. Heavy WordPress themes with bloated CSS
+7. Large hero videos
+8. Old JavaScript bundles without tree-shaking
+9. Slow database queries on dynamic pages
+10. No caching strategy
+
+## Fixes that actually move the needle
+
+### 1. Compress and modernize images
+
+Most sites have images that are **5–10x larger than they need to be**.
+
+- Convert to **WebP or AVIF** (30–50% smaller than JPEG/PNG)
+- Resize to actual display size — never serve a 4000px image into a 600px slot
+- Use **lazy loading** (`loading="lazy"`) for below-the-fold images
+- Always specify **width and height** to prevent CLS
+
+### 2. Use a CDN
+
+A content delivery network serves your site from servers close to each user. Adding a CDN often **cuts load times in half** for global audiences.
+
+Free or cheap options: Cloudflare, Vercel, Netlify, Bunny.net.
+
+### 3. Eliminate render-blocking resources
+
+Move non-critical JavaScript to load **async** or **deferred**. Inline critical CSS for above-the-fold content. Lazy-load chat widgets and other third-party scripts.
+
+### 4. Audit third-party scripts
+
+![Multiple browser tabs and developer tools](https://images.unsplash.com/photo-1547658719-da2b51169166?auto=format&fit=crop&w=1200&q=80)
+
+Open your site and count the trackers. Most sites we audit have **15+ third-party scripts** running, half of which the team forgot about.
+
+Remove what you don't need. Load what you do need **as late as possible**.
+
+### 5. Modernize your stack
+
+If you're on a slow WordPress theme, sometimes the right answer is a **rebuild**. Modern frameworks like Next.js or Astro are designed from the ground up for performance.
+
+We've migrated clients from WordPress to Next.js and seen **LCP drop from 6 seconds to 0.9 seconds** — without changing a word of content.
+
+## A simple performance budget
+
+For each page on your site, aim for:
+
+| Metric | Budget |
+|--------|--------|
+| Total page weight | under 1 MB |
+| JavaScript | under 200 KB |
+| Images | under 500 KB |
+| Web fonts | under 100 KB, max 2 weights |
+| Third-party scripts | under 5 |
+| LCP | under 2 seconds |
+| INP | under 150 ms |
+
+If you go over, something has to come out.
+
+## Why this matters for SEO
+
+Performance isn't just UX — it's a **direct ranking factor** in Google's algorithm. Sites with fast Core Web Vitals get:
+
+- Higher rankings on borderline queries
+- Better Quality Scores in Google Ads (lower CPC)
+- Higher AdSense revenue
+- Better AI search visibility (ChatGPT search, Perplexity)
+
+In other words: a slow site **costs you twice** — once in conversions, again in traffic.
+
+## How BugState can help
+
+Performance is in our DNA. We build [websites](/services) and [landing pages](/services) on Next.js with image optimization, edge caching, and Core Web Vitals as a hard requirement — not an afterthought.
+
+If your site loads slowly, [let's run a free audit](/contact). We'll send you a prioritized list of fixes ranked by impact and effort.
+
+---
+
+*Want a fast website that ranks and converts? [Get in touch with BugState](/contact).*
